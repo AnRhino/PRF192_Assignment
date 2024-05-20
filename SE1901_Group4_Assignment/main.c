@@ -6,7 +6,7 @@ int make_choice(int min, int max);
 void add_grade();
 void update_grade();
 void delete_grade();
-
+// Them comment
 int main(void)
 {
     int choice;
