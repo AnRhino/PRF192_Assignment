@@ -16,17 +16,17 @@ int main(void)
         choice = make_choice(0, 3);
         switch(choice)
         {
-            case 0:
-                break;
-            case 1:
-                add_grade();
-                break;
-            case 2:
-                update_grade();
-                break;
-            case 3:
-                delete_grade();
-                break;
+        case 0:
+            break;
+        case 1:
+            add_grade();
+            break;
+        case 2:
+            update_grade();
+            break;
+        case 3:
+            delete_grade();
+            break;
         }
 
         if(choice)
@@ -76,7 +76,8 @@ int make_choice(int min, int max)
         }
         else
             not_valid = 0;
-    } while(not_valid);
+    }
+    while(not_valid);
 
     system("clear");
 
