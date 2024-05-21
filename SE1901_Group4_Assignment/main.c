@@ -104,4 +104,3 @@ void delete_grade()
 {
     printf("Write your code here to implement the delete_grade() function.\n");
 }
-// hao da test github
