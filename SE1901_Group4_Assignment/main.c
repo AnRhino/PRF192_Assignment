@@ -6,7 +6,7 @@ int make_choice(int min, int max);
 void add_grade();
 void update_grade();
 void delete_grade();
-// Them comment
+
 int main(void)
 {
     int choice;
@@ -46,9 +46,14 @@ void print_menu()
     // system("cls"); // for windows
     printf("GRADING MANAGEMENT SYSTEM\n");
     printf("-------------------------\n");
-    printf("1. Add grade\n");
-    printf("2. Update grade\n");
-    printf("3. Delete grade\n");
+    printf("1. Display list of students\n");
+    printf("2. Add a new student\n");
+    printf("3. Delete a student\n");
+    printf("4. Update infomation\n");
+    printf("5. Check for missing grades\n");
+    printf("6. Find student grades by student ID\n");
+    printf("7. List students' grades by class ID\n");
+    printf("8. Save\n");
     printf("0. Exit\n");
 }
 
