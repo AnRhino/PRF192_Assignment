@@ -49,7 +49,7 @@ void print_menu()
     printf("1. Display list of students\n");
     printf("2. Add a new student\n");
     printf("3. Delete a student\n");
-    printf("4. Update infomation\n");
+    printf("4. Update information\n");
     printf("5. Check for missing grades\n");
     printf("6. Find student grades by student ID\n");
     printf("7. List students' grades by class ID\n");
