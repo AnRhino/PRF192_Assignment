@@ -42,8 +42,8 @@ int main(void)
 
 void print_menu()
 {
-    system("clear"); // for macos, linux
-    // system("cls"); // for windows
+    //system("clear"); // for macos, linux
+    system("cls"); // for windows
     printf("GRADING MANAGEMENT SYSTEM\n");
     printf("-------------------------\n");
     printf("1. Display list of students\n");
@@ -84,7 +84,8 @@ int make_choice(int min, int max)
     }
     while(not_valid);
 
-    system("clear");
+    //system("clear"); // for macos, linux
+    system("cls"); // for windows
 
     return num;
 }
