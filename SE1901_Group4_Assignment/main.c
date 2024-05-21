@@ -42,13 +42,18 @@ int main(void)
 
 void print_menu()
 {
-    system("clear"); // for macos, linux
-    // system("cls"); // for windows
+    //system("clear"); // for macos, linux
+    system("cls"); // for windows
     printf("GRADING MANAGEMENT SYSTEM\n");
     printf("-------------------------\n");
-    printf("1. Add grade\n");
-    printf("2. Update grade\n");
-    printf("3. Delete grade\n");
+    printf("1. Display list of students\n");
+    printf("2. Add a new student\n");
+    printf("3. Delete a student\n");
+    printf("4. Update information\n");
+    printf("5. Check for missing grades\n");
+    printf("6. Find student grades by student ID\n");
+    printf("7. List students' grades by class ID\n");
+    printf("8. Save\n");
     printf("0. Exit\n");
 }
 
@@ -79,7 +84,8 @@ int make_choice(int min, int max)
     }
     while(not_valid);
 
-    system("clear");
+    //system("clear"); // for macos, linux
+    system("cls"); // for windows
 
     return num;
 }
