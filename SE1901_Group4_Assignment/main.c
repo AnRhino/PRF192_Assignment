@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void print_menu();
 int make_choice(int min, int max);
@@ -7,8 +8,24 @@ void add_grade();
 void update_grade();
 void delete_grade();
 
+struct Student
+{
+    char sClassName[10];
+    char sStudentID[8];
+    char sStudentName[30];
+    double dWorkshop;
+    double dProgressTest;
+    double dAssignment;
+    double dPracticalExam;
+    double dFinalExam;
+};
+
+typedef struct Student student;
+
 int main(void)
 {
+    FILE *pFile;
+    pFile = fopen("Group4Data.txt", "w+");
     int choice;
 
     do
@@ -36,7 +53,7 @@ int main(void)
         }
     }
     while(choice);
-
+    fclose(pFile);
     return 0;
 }
 
