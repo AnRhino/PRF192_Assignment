@@ -2,11 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void print_menu();
-int make_choice(int min, int max);
-void add_grade();
-void update_grade();
-void delete_grade();
+FILE *pFile;
 
 struct Student
 {
@@ -22,42 +18,59 @@ struct Student
 
 typedef struct Student student;
 
+void LoadFile(student *pStudentInfo, int nNumberStudent); //incomplete
+void SaveFile(student *pStudentInfo, int nNumberStudent); //incomplete
+void PrintMenu(); //incomplete
+int nMakeChoice(int nMin, int nMax); //incomplete
+void AddStudent(); //incomplete
+void UpdateInfo(); //incomplete
+void DeleteStudent(); //incomplete
+
 int main(void)
 {
-    FILE *pFile;
     pFile = fopen("Group4Data.txt", "w+");
-    int choice;
 
+    int nNumberStudent = 0;
+    fscanf(pFile, "%d", &nNumberStudent);
+
+    student *pStudentInfo;
+    pStudentInfo = (student*) malloc(nNumberStudent * sizeof(student));
+    //Dynamic memory allocation
+
+    LoadFile(pStudentInfo, nNumberStudent);
+    int nChoice;
     do
     {
-        choice = make_choice(0, 3);
-        switch(choice)
+        nChoice = nMakeChoice(0, 3);
+        switch(nChoice)
         {
         case 0:
             break;
         case 1:
-            add_grade();
+            AddStudent();
             break;
         case 2:
-            update_grade();
+            UpdateInfo();
             break;
         case 3:
-            delete_grade();
+            DeleteStudent();
             break;
         }
 
-        if(choice)
+        if(nChoice)
         {
             printf("\nPress any key to return to the menu.");
             getchar();
         }
     }
-    while(choice);
+    while(nChoice);
+    fprintf(pFile, "%d", nNumberStudent);
+    SaveFile(pStudentInfo, nNumberStudent);
     fclose(pFile);
     return 0;
 }
 
-void print_menu()
+void PrintMenu()
 {
     //system("clear"); // for macos, linux
     system("cls"); // for windows
@@ -67,57 +80,70 @@ void print_menu()
     printf("2. Add a new student\n");
     printf("3. Delete a student\n");
     printf("4. Update information\n");
-    printf("5. Check for missing grades\n");
-    printf("6. Find student grades by student ID\n");
-    printf("7. List students' grades by class ID\n");
-    printf("8. Save\n");
+    printf("5. Find student grades by student ID\n");
+    printf("6. List students' grades by class ID\n");
+    printf("7. Save\n");
     printf("0. Exit\n");
 }
 
-int make_choice(int min, int max)
+void LoadFile(student *pStudentInfo, int nNumberStudent)
 {
-    int not_valid = 1, num, scanf_ret;
-    char c;
+    for(int i = 0; i < nNumberStudent; i++)
+    {
+        fscanf(pFile, "\n");
+        fscanf(pFile, "%[\t]", pStudentInfo[i].sClassName);
+    }
+}
 
-    print_menu();
+void SaveFile(student *pStudentInfo, int nNumberStudent)
+{
+
+}
+
+int nMakeChoice(int nMin, int nMax)
+{
+    int nNotValid = 1, nInput, nScanfRet;
+    char cInput;
+
+    PrintMenu();
     fflush(stdin);
     do
     {
         printf("\nEnter your choice: ");
-        scanf_ret = scanf("%d%c", &num, &c);
-        if(scanf_ret < 2 || c != '\n')
+        nScanfRet = scanf("%d%c", &nInput, &cInput);
+        if(nScanfRet < 2 || cInput != '\n')
         {
-            print_menu();
+            PrintMenu();
             printf("\nYour choice is not valid. Please try again!\n");
             fflush(stdin);
         }
-        else if(num < min || num > max)
+        else if(nInput < nMin || nInput > nMax)
         {
-            print_menu();
+            PrintMenu();
             printf("\nYour choice is not valid. Please try again!\n");
         }
         else
-            not_valid = 0;
+            nNotValid = 0;
     }
-    while(not_valid);
+    while(nNotValid);
 
     //system("clear"); // for macos, linux
     system("cls"); // for windows
 
-    return num;
+    return nInput;
 }
 
-void add_grade()
+void AddStudent()
 {
     printf("Write your code here to implement the add_grade() function.\n");
 }
 
-void update_grade()
+void UpdateInfo()
 {
     printf("Write your code here to implement the update_grade() function.\n");
 }
 
-void delete_grade()
+void DeleteStudent()
 {
     printf("Write your code here to implement the delete_grade() function.\n");
 }
