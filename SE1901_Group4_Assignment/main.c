@@ -28,7 +28,7 @@ void DeleteStudent(); //incomplete
 
 int main(void)
 {
-    pFile = fopen("Group4Data.txt", "w+");
+    pFile = fopen("Group4Data.txt", "r");
 
     int nNumberStudent = 0;
     fscanf(pFile, "%d", &nNumberStudent);
@@ -38,6 +38,8 @@ int main(void)
     //Dynamic memory allocation
 
     LoadFile(pStudentInfo, nNumberStudent);
+    fclose(pFile);
+
     int nChoice;
     do
     {
@@ -64,9 +66,12 @@ int main(void)
         }
     }
     while(nChoice);
+
+    pFile = fopen("Group4Data.txt", "w");
     fprintf(pFile, "%d", nNumberStudent);
     SaveFile(pStudentInfo, nNumberStudent);
     fclose(pFile);
+    free(pStudentInfo);
     return 0;
 }
 
