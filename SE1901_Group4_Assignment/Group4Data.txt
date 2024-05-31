@@ -1,1 +1,3 @@
-0
+2
+SE1901;CE190747;Nguyen Ho Phuoc An;10;9.8;9.6;9.4;9.2
+SE1901;CE190770;Dinh Cong Phuc;9;8.8;8.6;8.4;8.2
