@@ -194,34 +194,8 @@ void PrintAll(student *pStudentInfo, int nNumberStudent)
 {
     //print top border of header
     {
-        printf("+");
-        for(int i = 0; i < 10; i++) //Class Name
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Student ID
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 30; i++) //Student Name
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 8; i++) //Workshop
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 13; i++) //Progress Test
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Assignment
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 14; i++) //Practical Exam
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Final Exam
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 6; i++) //Status
-            printf("-");
-        printf("+\n");
+        printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
+        printf("\n");
     }
     //print header
     {
@@ -229,34 +203,8 @@ void PrintAll(student *pStudentInfo, int nNumberStudent)
     }
     //print bottom border of header
     {
-        printf("+");
-        for(int i = 0; i < 10; i++) //Class Name
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Student ID
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 30; i++) //Student Name
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 8; i++) //Workshop
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 13; i++) //Progress Test
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Assignment
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 14; i++) //Practical Exam
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Final Exam
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 6; i++) //Status
-            printf("-");
-        printf("+\n");
+        printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
+        printf("\n");
     }
     //print data
     for(int i = 0; i < nNumberStudent; i++)
@@ -272,36 +220,10 @@ void PrintAll(student *pStudentInfo, int nNumberStudent)
                pStudentInfo[i].dFinalExam,
                (nCheckPassed(pStudentInfo[i]) == 1)?"Passes":"Failed");
     }
-    //print bottom border of header
+    //print bottom border of table
     {
-        printf("+");
-        for(int i = 0; i < 10; i++) //Class Name
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Student ID
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 30; i++) //Student Name
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 8; i++) //Workshop
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 13; i++) //Progress Test
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Assignment
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 14; i++) //Practical Exam
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 10; i++) //Final Exam
-            printf("-");
-        printf("+");
-        for(int i = 0; i < 6; i++) //Status
-            printf("-");
-        printf("+\n");
+        printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
+        printf("\n");
     }
 }
 
