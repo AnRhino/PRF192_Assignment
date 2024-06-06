@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,c
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,c
+# Created by https://www.toptal.com/developers/gitignore/api/c,windows,visualstudiocode,codeblocks
+# Edit at https://www.toptal.com/developers/gitignore?templates=c,windows,visualstudiocode,codeblocks
 
 ### C ###
 # Prerequisites
@@ -55,6 +55,14 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+### CodeBlocks ###
+# specific to CodeBlocks IDE
+*.layout
+*.depend
+# generated directories
+bin/
+obj/
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -100,5 +108,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,c
+# End of https://www.toptal.com/developers/gitignore/api/c,windows,visualstudiocode,codeblocks
 1
