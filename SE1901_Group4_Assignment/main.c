@@ -24,8 +24,8 @@ int nMakeChoice(int nMin, int nMax);
 int nCheckPassed(student StudentInfo); //completed
 void f1_PrintAll(student *pStudentInfo, int nNumberStudent); //completed
 void f2_AddStudent(); //Bao is cooking
-void f3_UpdateInfo(); //Bao is cooking
-void f4_DeleteStudent(); //Nhut is cooking
+void f3_UpdateInfo(); //Nhut is cooking
+void f4_DeleteStudent(); //Bao is cooking
 void f5_SortBy(); //Hao is cooking
 void f6_FindStudentGrade(); //Phuc is cooking
 void f7_ListStudentGradeinClass(); //Phuc is cooking
