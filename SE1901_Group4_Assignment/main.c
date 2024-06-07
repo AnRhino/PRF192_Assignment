@@ -19,14 +19,17 @@ struct Student
 typedef struct Student student;
 
 void LoadFile(student *pStudentInfo, int nNumberStudent); //completed
-void SaveFile(student *pStudentInfo, int nNumberStudent); //completed
 void PrintMenu();
 int nMakeChoice(int nMin, int nMax);
 int nCheckPassed(student StudentInfo); //completed
-void PrintAll(student *pStudent, int nNumberStudent); //completed
-void AddStudent(); //incomplete
-void UpdateInfo(); //incomplete
-void DeleteStudent(); //incomplete
+void f1_PrintAll(student *pStudentInfo, int nNumberStudent); //completed
+void f2_AddStudent(); //Bao is cooking
+void f3_UpdateInfo(); //Nhut is cooking
+void f4_DeleteStudent(); //Bao is cooking
+void f5_SortBy(); //Hao is cooking
+void f6_FindStudentGrade(); //Phuc is cooking
+void f7_ListStudentGradeinClass(); //Phuc is cooking
+void f8_SaveFile(student *pStudentInfo, int nNumberStudent); //completed
 
 int main(void)
 {
@@ -51,16 +54,16 @@ int main(void)
         case 0:
             break;
         case 1:
-            PrintAll(pStudentInfo, nNumberStudent);
+            f1_PrintAll(pStudentInfo, nNumberStudent);
             break;
         case 2:
-            AddStudent();
+            f2_AddStudent();
             break;
         case 3:
-            UpdateInfo();
+            f3_UpdateInfo();
             break;
         case 4:
-            DeleteStudent();
+            f4_DeleteStudent();
             break;
         case 5:
             break;
@@ -69,7 +72,7 @@ int main(void)
         case 7:
             break;
         case 8:
-            SaveFile(pStudentInfo, nNumberStudent);
+            f8_SaveFile(pStudentInfo, nNumberStudent);
             break;
         }
 
@@ -97,10 +100,10 @@ void PrintMenu()
     printf("-------------------------\n");
     printf("1. Display list of students\n");
     printf("2. Add a new student\n");
-    printf("3. Delete a student\n");
-    printf("4. Update information\n");
+    printf("3. Update information\n");
+    printf("4. Delete a student\n");
     printf("5. Sort by ...\n");
-    printf("6. Find student grades by student ID\n");
+    printf("6. Find student's grades by student ID\n");
     printf("7. List students' grades by class ID\n");
     printf("8. Save\n");
     printf("0. Exit\n");
@@ -120,26 +123,6 @@ void LoadFile(student *pStudentInfo, int nNumberStudent)
         fscanf(pFile, "%lf%*c", &pStudentInfo[i].dPracticalExam);
         fscanf(pFile, "%lf%*c", &pStudentInfo[i].dFinalExam);
     }
-}
-
-void SaveFile(student *pStudentInfo, int nNumberStudent)
-{
-    pFile = fopen("Group4Data.txt", "w");
-    fprintf(pFile, "%d", nNumberStudent);
-    for(int i = 0; i < nNumberStudent; i++)
-    {
-        fprintf(pFile, "\n");
-        fprintf(pFile, "%s;", pStudentInfo[i].sClassName);
-        fprintf(pFile, "%s;", pStudentInfo[i].sStudentID);
-        fprintf(pFile, "%s;", pStudentInfo[i].sStudentName);
-        fprintf(pFile, "%.1lf;", pStudentInfo[i].dWorkshop);
-        fprintf(pFile, "%.1lf;", pStudentInfo[i].dProgressTest);
-        fprintf(pFile, "%.1lf;", pStudentInfo[i].dAssignment);
-        fprintf(pFile, "%.1lf;", pStudentInfo[i].dPracticalExam);
-        fprintf(pFile, "%.1lf", pStudentInfo[i].dFinalExam);
-    }
-    fclose(pFile);
-    printf("All data and edits have been saved!\n");
 }
 
 int nMakeChoice(int nMin, int nMax)
@@ -190,22 +173,19 @@ int nCheckPassed(student StudentInfo)
     return 1;
 }
 
-void PrintAll(student *pStudentInfo, int nNumberStudent)
+void f1_PrintAll(student *pStudentInfo, int nNumberStudent)
 {
     //print top border of header
-    {
-        printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
-        printf("\n");
-    }
+    printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
+    printf("\n");
+
     //print header
-    {
-        printf("|Class Name|Student ID|%-30s|Workshop|Progress Test|Assignment|Practical Exam|Final Exam|Status|\n", "Student Name");
-    }
+    printf("|Class Name|Student ID|%-30s|Workshop|Progress Test|Assignment|Practical Exam|Final Exam|Status|\n", "Student Name");
+
     //print bottom border of header
-    {
-        printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
-        printf("\n");
-    }
+    printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
+    printf("\n");
+
     //print data
     for(int i = 0; i < nNumberStudent; i++)
     {
@@ -220,24 +200,43 @@ void PrintAll(student *pStudentInfo, int nNumberStudent)
                pStudentInfo[i].dFinalExam,
                (nCheckPassed(pStudentInfo[i]) == 1)?"Passes":"Failed");
     }
+
     //print bottom border of table
-    {
-        printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
-        printf("\n");
-    }
+    printf("+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+------+");
+    printf("\n");
 }
 
-void AddStudent()
+void f2_AddStudent()
 {
     printf("Write your code here to implement the add_grade() function.\n");
 }
 
-void UpdateInfo()
+void f3_UpdateInfo()
 {
     printf("Write your code here to implement the update_grade() function.\n");
 }
 
-void DeleteStudent()
+void f4_DeleteStudent()
 {
     printf("Write your code here to implement the delete_grade() function.\n");
+}
+
+void f8_SaveFile(student *pStudentInfo, int nNumberStudent)
+{
+    pFile = fopen("Group4Data.txt", "w");
+    fprintf(pFile, "%d", nNumberStudent);
+    for(int i = 0; i < nNumberStudent; i++)
+    {
+        fprintf(pFile, "\n");
+        fprintf(pFile, "%s;", pStudentInfo[i].sClassName);
+        fprintf(pFile, "%s;", pStudentInfo[i].sStudentID);
+        fprintf(pFile, "%s;", pStudentInfo[i].sStudentName);
+        fprintf(pFile, "%.1lf;", pStudentInfo[i].dWorkshop);
+        fprintf(pFile, "%.1lf;", pStudentInfo[i].dProgressTest);
+        fprintf(pFile, "%.1lf;", pStudentInfo[i].dAssignment);
+        fprintf(pFile, "%.1lf;", pStudentInfo[i].dPracticalExam);
+        fprintf(pFile, "%.1lf", pStudentInfo[i].dFinalExam);
+    }
+    fclose(pFile);
+    printf("All data and edits have been saved!\n");
 }
