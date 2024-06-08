@@ -221,6 +221,65 @@ void f4_DeleteStudent()
     printf("Write your code here to implement the delete_grade() function.\n");
 }
 
+void f6_FindStudentGrade() //Phuc_unfinished
+{
+    //Note: Implement a Keystroke to exit in case of not wanting to f6 anymore
+    //1.input Class and StudentCode
+    //2.Check valid input
+    //3.lookup for data in db
+    //4.return grades
+    char StudentGroup[6];
+    char StudentCode[8];
+
+    for(;;)
+    {
+        printf("Enter Class(Student group, example: SE1901): ");
+        scanf("%s", &StudentGroup);
+
+        if(//StudentGroup not found in file)
+        {
+            printf("Student Group not found, please try again.\n");
+        } else {
+            break;
+        }
+    }
+
+    for(;;)
+    {
+        printf("Enter Student Code(Role number, example: CE19XXXX): ");
+        scanf("%s", &StudentCode);
+
+        if(//StudentCode not found in file)
+        {
+            printf("Student Code not found, please try again.\n");
+        } else {
+            printf(//Result);
+        }
+    }
+}
+
+void f7_ListStudentGradeinClass() //Phuc_unfinished
+{
+    //Note: Implement a Keystroke to exit in case of not wanting to f7 anymore
+    //1.Input StudentGroup
+    //2.Loop through all StudentCode in StudentGroup
+    //3.Output Grade of each StudentCode of StudentGroup
+    char StudentGroup[6];
+    for(;;)
+    {
+        printf("Enter Class(Student group, example: SE1901): ");
+        scanf("%s", &StudentGroup);
+
+        if(//StudentGroup not found in file)
+        {
+            printf("Student Group not found, please try again.\n");
+        } else {
+            break;
+        }
+    }
+
+}
+
 void f8_SaveFile(student *pStudentInfo, int nNumberStudent)
 {
     pFile = fopen("Group4Data.txt", "w");
