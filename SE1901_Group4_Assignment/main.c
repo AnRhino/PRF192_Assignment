@@ -27,7 +27,7 @@ void f2_AddStudent(); //Bao is cooking
 void f3_UpdateInfo(); //Nhut is cooking
 void f4_DeleteStudent(); //Bao is cooking
 void f5_SortBy(); //Hao is cooking
-void f6_FindStudentGrade(); //Phuc is cooking
+void f6_FindStudentGrade(); //Completed
 void f7_ListStudentGradeinClass(); //Phuc is cooking
 void f8_SaveFile(student *pStudentInfo, int nNumberStudent); //completed
 
@@ -68,6 +68,7 @@ int main(void)
         case 5:
             break;
         case 6:
+            f6_FindStudentGrade(pStudentInfo, nNumberStudent);
             break;
         case 7:
             break;
@@ -219,6 +220,68 @@ void f3_UpdateInfo()
 void f4_DeleteStudent()
 {
     printf("Write your code here to implement the delete_grade() function.\n");
+}
+
+void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent)
+{
+    //Note: Implement a Keystroke to exit in case of not wanting to f6 anymore
+    //1.input StudentCode
+    //2.Check valid input
+    //3.lookup for data in db
+    //4.return grades
+    char StudentID[10];
+    int index = -1;
+
+    do
+    {
+        printf("Enter Student ID (example: CE19XXXX): ");
+        scanf("%s", &StudentID);
+        for(int i = 0; i < nNumberStudent; i++)
+        {
+            if(strcmp(StudentID, pStudentInfo[i].sStudentID) == 0)
+            {
+                index = i;
+                break;
+            }
+        }
+        if(index == -1)
+            printf("Student ID not found, please try again.\n");
+    } while (index == -1);
+    
+    printf("Student infomation:\n");
+    
+    printf("Class name:     %s\n", pStudentInfo[index].sClassName);
+    printf("Student ID:     %s\n", pStudentInfo[index].sStudentID);
+    printf("Student name:   %s\n", pStudentInfo[index].sStudentName);
+    printf("Workshop:       %.1lf\n", pStudentInfo[index].dWorkshop);
+    printf("Progress test:  %.1lf\n", pStudentInfo[index].dProgressTest);
+    printf("Assignment:     %.1lf\n", pStudentInfo[index].dAssignment);
+    printf("Practical exam: %.1lf\n", pStudentInfo[index].dPracticalExam);
+    printf("Final exam:     %.1lf\n", pStudentInfo[index].dFinalExam);
+    printf("Status:         %s\n", (nCheckPassed(pStudentInfo[index]) == 1)?"Passes":"Failed");
+    
+    getchar();
+}
+
+void f7_ListStudentGradeinClass() //Phuc_unfinished
+{
+    //Note: Implement a Keystroke to exit in case of not wanting to f7 anymore
+    //1.Input StudentGroup
+    //2.Loop through all StudentCode in StudentGroup
+    //3.Output Grade of each StudentCode of StudentGroup
+    
+//     do
+//     {
+//         printf("Enter Class(Student group, example: SE1901): ");
+//         scanf("%s", &StudentGroup);
+
+//         if(//StudentGroup not found in file)
+//         {
+//             printf("Student Group not found, please try again.\n");
+//         } else {
+//             break;
+//         }
+//     } while (/* Student group found */);
 }
 
 void f8_SaveFile(student *pStudentInfo, int nNumberStudent)
