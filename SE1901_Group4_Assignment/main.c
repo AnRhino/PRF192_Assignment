@@ -235,7 +235,7 @@ void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent)
     do
     {
         printf("Enter Student ID (example: CE19XXXX): ");
-        scanf("%s", &StudentID);
+        scanf("%s%*c", &StudentID);
         for(int i = 0; i < nNumberStudent; i++)
         {
             if(strcmp(StudentID, pStudentInfo[i].sStudentID) == 0)
@@ -260,7 +260,7 @@ void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent)
     printf("Final exam:     %.1lf\n", pStudentInfo[index].dFinalExam);
     printf("Status:         %s\n", (nCheckPassed(pStudentInfo[index]) == 1)?"Passes":"Failed");
     
-    getchar();
+    //getchar();
 }
 
 void f7_ListStudentGradeinClass() //Phuc_unfinished
