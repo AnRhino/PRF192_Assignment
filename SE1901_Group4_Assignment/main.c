@@ -23,9 +23,9 @@ void PrintMenu();
 int nMakeChoice(int nMin, int nMax);
 int nCheckPassed(student StudentInfo); //completed
 void f1_PrintAll(student *pStudentInfo, int nNumberStudent); //completed
-void f2_AddStudent(); //Bao is cooking
+void f2_AddStudent(); //completed
 void f3_UpdateInfo(); //Nhut is cooking
-void f4_DeleteStudent(); //Bao is cooking
+void f4_DeleteStudent(); //complete
 void f5_SortBy(); //Hao is cooking
 void f6_FindStudentGrade(); //Completed
 void f7_ListStudentGradeinClass(); //Phuc is cooking
@@ -57,13 +57,13 @@ int main(void)
             f1_PrintAll(pStudentInfo, nNumberStudent);
             break;
         case 2:
-            f2_AddStudent();
+            f2_AddStudent(&pStudentInfo, &nNumberStudent);
             break;
         case 3:
             f3_UpdateInfo();
             break;
         case 4:
-            f4_DeleteStudent();
+            f4_DeleteStudent(&pStudentInfo, &nNumberStudent);
             break;
         case 5:
             break;
@@ -207,9 +207,42 @@ void f1_PrintAll(student *pStudentInfo, int nNumberStudent)
     printf("\n");
 }
 
-void f2_AddStudent()
+void f2_AddStudent(student **pStudentInfo, int *nNumberStudent)
 {
-    printf("Write your code here to implement the add_grade() function.\n");
+    student newStudent;
+
+    printf("Enter class name: ");
+    scanf("%s", newStudent.sClassName);
+
+    printf("Enter student ID: ");
+    scanf("%s", newStudent.sStudentID);
+
+    printf("Enter student name: ");
+    getchar();  // to consume newline character left by previous scanf
+    fgets(newStudent.sStudentName, sizeof(newStudent.sStudentName), stdin);
+    newStudent.sStudentName[strcspn(newStudent.sStudentName, "\n")] = '\0';  // remove trailing newline
+
+    printf("Enter workshop grade: ");
+    scanf("%lf", &newStudent.dWorkshop);
+
+    printf("Enter progress test grade: ");
+    scanf("%lf", &newStudent.dProgressTest);
+
+    printf("Enter assignment grade: ");
+    scanf("%lf", &newStudent.dAssignment);
+
+    printf("Enter practical exam grade: ");
+    scanf("%lf", &newStudent.dPracticalExam);
+
+    printf("Enter final exam grade: ");
+    scanf("%lf", &newStudent.dFinalExam);
+
+    // Reallocate memory to add the new student
+    *pStudentInfo = (student *) realloc(*pStudentInfo, (*nNumberStudent + 1) * sizeof(student));
+    (*pStudentInfo)[*nNumberStudent] = newStudent;
+    (*nNumberStudent)++;
+
+    printf("Student added successfully!\n");
 }
 
 void f3_UpdateInfo()
@@ -217,9 +250,34 @@ void f3_UpdateInfo()
     printf("Write your code here to implement the update_grade() function.\n");
 }
 
-void f4_DeleteStudent()
+void f4_DeleteStudent(student **pStudentInfo, int *nNumberStudent)
 {
-    printf("Write your code here to implement the delete_grade() function.\n");
+    char sStudentID[10];
+
+    printf("Enter the student ID of the student to be deleted: ");
+    scanf("%s", sStudentID);
+
+    int found = 0;
+    for (int i = 0; i < *nNumberStudent; i++)
+    {
+        if (strcmp((*pStudentInfo)[i].sStudentID, sStudentID) == 0)
+        {
+            found = 1;
+            for (int j = i; j < *nNumberStudent - 1; j++)
+            {
+                (*pStudentInfo)[j] = (*pStudentInfo)[j + 1];
+            }
+            *pStudentInfo = (student *) realloc(*pStudentInfo, (*nNumberStudent - 1) * sizeof(student));
+            (*nNumberStudent)--;
+            printf("Student deleted successfully!\n");
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        printf("Student ID not found.\n");
+    }
 }
 
 void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent)
