@@ -4,7 +4,16 @@
 	<stdlib.h>
 	<string.h>
 
+<<<<<<< Updated upstream
 1717729699 source:c:\users\admin\videos\hoccode\hoc_code\assignment\prf192_assignment\se1901_group4_assignment\main.c
+=======
+1718717723 source:c:\users\admin\videos\hoccode\hoc_code\prf_assignment\prf192_assignment\se1901_group4_assignment\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1719728801 source:c:\users\admin\onedrive\video\hoccode\hoc_code\prf_assignment\prf192_assignment\se1901_group4_assignment\main.c
+>>>>>>> Stashed changes
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

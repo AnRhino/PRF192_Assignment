@@ -24,7 +24,7 @@ int nMakeChoice(int nMin, int nMax);
 int nCheckPassed(student StudentInfo); //completed
 void f1_PrintAll(student *pStudentInfo, int nNumberStudent); //completed
 void f2_AddStudent(); //Bao is cooking
-void f3_UpdateInfo(); //Nhut is cooking
+void f3_UpdateInfo(student *pStudentInfo, int nNumberStudent); //Nhut is cooking
 void f4_DeleteStudent(); //Bao is cooking
 void f5_SortBy(); //Hao is cooking
 void f6_FindStudentGrade(); //Phuc is cooking
@@ -60,7 +60,7 @@ int main(void)
             f2_AddStudent();
             break;
         case 3:
-            f3_UpdateInfo();
+            f3_UpdateInfo(pStudentInfo, nNumberStudent);
             break;
         case 4:
             f4_DeleteStudent();
@@ -161,13 +161,13 @@ int nMakeChoice(int nMin, int nMax)
 int nCheckPassed(student StudentInfo)
 {
     if(StudentInfo.dAssignment == 0 ||
-       StudentInfo.dProgressTest == 0 ||
-       StudentInfo.dWorkshop == 0 ||
-       StudentInfo.dPracticalExam == 0 ||
-       StudentInfo.dFinalExam < 4)
+            StudentInfo.dProgressTest == 0 ||
+            StudentInfo.dWorkshop == 0 ||
+            StudentInfo.dPracticalExam == 0 ||
+            StudentInfo.dFinalExam < 4)
         return 0;
     double dAverage = 0.1*(StudentInfo.dWorkshop + StudentInfo.dProgressTest + StudentInfo.dAssignment)
-                    + 0.4*StudentInfo.dPracticalExam + 0.3*StudentInfo.dFinalExam;
+                      + 0.4*StudentInfo.dPracticalExam + 0.3*StudentInfo.dFinalExam;
     if(dAverage < 5)
         return 0;
     return 1;
@@ -211,10 +211,97 @@ void f2_AddStudent()
     printf("Write your code here to implement the add_grade() function.\n");
 }
 
-void f3_UpdateInfo()
+
+
+
+
+int find(student *pStudentInfo, int nNumberStudent)
 {
-    printf("Write your code here to implement the update_grade() function.\n");
+    char StudentID[9];
+
+    printf("Enter Student ID: ");
+    scanf("%8s", StudentID);
+    //if(StudentID)
+    for(int i = 0; i < nNumberStudent; i++)
+    {
+        if(strcmp(StudentID, pStudentInfo[i].sStudentID) == 0)
+            return i;
+    }
+    return -1;
+
+
 }
+
+void f3_UpdateInfo(student *pStudentInfo, int nNumberStudent)
+{
+    int index;
+    char choice;
+
+    do
+    {
+
+        index = find(pStudentInfo, nNumberStudent);
+
+        if (index == -1)
+        {
+            printf("StudentID not found.\n");
+            printf("Do you want to continue? (y/n): ");
+            scanf(" %c", &choice);
+            if (choice == 'n' || choice == 'N')
+            {
+                return;
+            }
+        }
+        else
+        {
+            printf("Student found: \n");
+            printf("Name: %s | ID: %s | Class: %s.\n", pStudentInfo[index].sStudentName, pStudentInfo[index].sStudentID, pStudentInfo[index].sClassName);
+            printf("Which information do you want to update?\n");
+            printf("1. Name\n");
+            printf("2. ID\n");
+            printf("3. Class name\n");
+            printf("Enter your choice: ");
+            int update_choice;
+            scanf("%d", &update_choice);
+
+            switch (update_choice)
+            {
+            case 1:
+                printf("Enter new name: ");
+                scanf(" %[^\n]%*c", pStudentInfo[index].sStudentName);
+                break;
+            case 2:
+                printf("Enter new ID: ");
+                scanf("%8s", pStudentInfo[index].sStudentID);
+                break;
+            case 3:
+                printf("Enter new class name: ");
+                scanf(" %6s", pStudentInfo[index].sClassName);
+                break;
+            default:
+                printf("Invalid choice.\n");
+                break;
+            }
+            printf("Information updated successfully.\n");
+
+
+            printf("Do you want to continue? (y/n): ");
+            scanf(" %c", &choice);
+            if (choice == 'n' || choice == 'N')
+            {
+                return;
+            }
+
+
+        }
+    }
+    while (1);
+
+}
+
+
+
+
 
 void f4_DeleteStudent()
 {
