@@ -33,7 +33,7 @@ void ChangeStudent(student *pStudentInfo, int i, int j, int nSortBy, int nSortFr
 
 void f1_PrintAll(student *pStudentInfo, int nNumberStudent); //completed
 void f2_AddStudent(student *pStudentInfo, int *nNumberStudent); //completed
-void f3_UpdateInfo(); //Nhut is cooking
+void f3_UpdateInfo(student *pStudentInfo, int nNumberStudent); //Nhut is cooking
 void f4_DeleteStudent(student *pStudentInfo, int *nNumberStudent); //completed
 void f5_SortBy(student *pStudentInfo, int nNumberStudent); //Completed
 void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent); //Completed
@@ -71,7 +71,7 @@ int main(void)
             f2_AddStudent(pStudentInfo, &nNumberStudent);
             break;
         case 3:
-            f3_UpdateInfo();
+            f3_UpdateInfo(pStudentInfo, nNumberStudent);
             break;
         case 4:
             f4_DeleteStudent(pStudentInfo, &nNumberStudent);
@@ -534,9 +534,114 @@ void f2_AddStudent(student *pStudentInfo, int *nNumberStudent)
     } while(nChoice);
 }
 
-void f3_UpdateInfo()
+int find(student *pStudentInfo, int nNumberStudent)
 {
-    printf("Write your code here to implement the update_grade() function.\n");
+    char StudentID[9];
+
+
+    printf("Enter Student ID: ");
+    scanf("%s", StudentID);
+
+
+    for(int i = 0; i < nNumberStudent; i++)
+    {
+        if(strcmp(StudentID, pStudentInfo[i].sStudentID) == 0)
+            return i;
+    }
+    return -1;
+
+
+}
+
+void f3_UpdateInfo(student *pStudentInfo, int nNumberStudent)
+{
+    int index;
+    char choice;
+
+    do
+    {
+
+        index = find(pStudentInfo, nNumberStudent);
+
+        if (index == -1)
+        {
+            printf("StudentID not found.\n");
+
+        while (1) {
+        printf("Do you want to continue? (Y for yes, N for no): ");
+        scanf(" %c", &choice);
+
+        if (choice == 'y' || choice == 'Y')
+            break;
+        else if (choice == 'n' || choice == 'N')
+            return 0;
+        else
+            printf("Invalid input. Please enter 'y' for yes or 'n' for no.\n");
+    }
+        }
+        else
+        {
+            printf("Student found: \n");
+            printf("\t1.Name: %s\n", pStudentInfo[index].sStudentName);
+            printf("\t2.ID: %s\n", pStudentInfo[index].sStudentID);
+            printf("\t3.Class: %s.\n", pStudentInfo[index].sClassName);
+            printf("Which information do you want to update?\n");
+            printf("1. Name\n");
+            printf("2. ID\n");
+            printf("3. Class name\n");
+            printf("Enter your choice: ");
+            int update_choice, flag=0;
+            scanf("%d", &update_choice);
+
+            switch (update_choice)
+            {
+            case 1:
+                printf("Enter new name: ");
+                scanf(" %[^\n]%*c", pStudentInfo[index].sStudentName);
+                flag=1;
+                break;
+            case 2:
+                do
+                {
+                printf("Enter new ID: ");
+                scanf("%8s", pStudentInfo[index].sStudentID);
+                } while(nCheckStudentID(pStudentInfo, nNumberStudent));
+                flag=1;
+                break;
+            case 3:
+                do
+                {
+                printf("Enter new class name: ");
+                scanf(" %6s", pStudentInfo[index].sClassName);
+            } while(nCheckClassName(pStudentInfo[index].sStudentID));
+            flag=1;
+                break;
+            default:
+                printf("Invalid choice.\n");
+                break;
+            }
+
+            if(flag)
+                printf("Information updated successfully.\n");
+
+
+            while (1) {
+        printf("Do you want to continue? (Y for yes, N for no): ");
+        scanf(" %c", &choice);
+
+        if (choice == 'y' || choice == 'Y')
+            break;
+        else if (choice == 'n' || choice == 'N')
+            return 0;
+        else
+            printf("Invalid input. Please enter 'y' for yes or 'n' for no.\n");
+    }
+
+
+
+        }
+    } while (1);
+
 }
 
 void f4_DeleteStudent(student *pStudentInfo, int *nNumberStudent)
