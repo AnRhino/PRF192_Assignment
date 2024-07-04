@@ -28,12 +28,13 @@ double dAvgGrade(student StudentInfo);
 int nCheckPassed(student StudentInfo); //completed
 int nGradeValidation(double dGrade, int nScanfRet); //Used to check input
 int nCheckClassName(char *sClassName);
-int nCheckStudentID(student *pStudentInfo, int nNumberStudent);
+int nCheckStudentID(student *pStudentInfo, int nNumberStudent, int nIndex);
 void ChangeStudent(student *pStudentInfo, int i, int j, int nSortBy, int nSortFrom); //Used in function 5
+int nFindStudentID(char *StudentID, student *pStudentInfo, int nNumberStudent);
 
 void f1_PrintAll(student *pStudentInfo, int nNumberStudent); //completed
 void f2_AddStudent(student *pStudentInfo, int *nNumberStudent); //completed
-void f3_UpdateInfo(); //Nhut is cooking
+void f3_UpdateInfo(student *pStudentInfo, int nNumberStudent); //Nhut is cooking
 void f4_DeleteStudent(student *pStudentInfo, int *nNumberStudent); //completed
 void f5_SortBy(student *pStudentInfo, int nNumberStudent); //Completed
 void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent); //Completed
@@ -71,7 +72,7 @@ int main(void)
             f2_AddStudent(pStudentInfo, &nNumberStudent);
             break;
         case 3:
-            f3_UpdateInfo();
+            f3_UpdateInfo(pStudentInfo, nNumberStudent);
             break;
         case 4:
             f4_DeleteStudent(pStudentInfo, &nNumberStudent);
@@ -290,57 +291,58 @@ int nCheckClassName(char *sClassName)
     return 1;
 }
 
-int nCheckStudentID(student *pStudentInfo, int nNumberStudent)
+int nCheckStudentID(student *pStudentInfo, int nNumberStudent, int nIndex)
 {
-    for(int i = 0; i < strlen(pStudentInfo[nNumberStudent-1].sStudentID); i++)
+    for(int i = 0; i < strlen(pStudentInfo[nIndex].sStudentID); i++)
     {
-        if(pStudentInfo[nNumberStudent-1].sStudentID[i] == ' ')
+        if(pStudentInfo[nIndex].sStudentID[i] == ' ')
         {
-            memmove(pStudentInfo[nNumberStudent-1].sStudentID + i,
-                    pStudentInfo[nNumberStudent-1].sStudentID + i+1,
-                    strlen(pStudentInfo[nNumberStudent-1].sStudentID + i));
+            memmove(pStudentInfo[nIndex].sStudentID + i,
+                    pStudentInfo[nIndex].sStudentID + i+1,
+                    strlen(pStudentInfo[nIndex].sStudentID + i));
         } //Delete SPACE characters
 
-        if(pStudentInfo[nNumberStudent-1].sStudentID[i] >= 'a' &&
-           pStudentInfo[nNumberStudent-1].sStudentID[i] <= 'z')
+        if(pStudentInfo[nIndex].sStudentID[i] >= 'a' &&
+           pStudentInfo[nIndex].sStudentID[i] <= 'z')
         {
-            pStudentInfo[nNumberStudent-1].sStudentID[i] -= ('a' - 'A');
+            pStudentInfo[nIndex].sStudentID[i] -= ('a' - 'A');
         } //Upper letter characters
     }
 
-    if(strlen(pStudentInfo[nNumberStudent-1].sStudentID) != 8)
+    if(strlen(pStudentInfo[nIndex].sStudentID) != 8)
     {
         printf("\t\tStudent ID is not in the correct format, please try again.\n");
         return 1;
     } //Check the length of Class Name (must be 6)
 
-    if(pStudentInfo[nNumberStudent-1].sStudentID[0] != 'C' &&
-       pStudentInfo[nNumberStudent-1].sStudentID[0] != 'H' &&
-       pStudentInfo[nNumberStudent-1].sStudentID[0] != 'S' &&
-       pStudentInfo[nNumberStudent-1].sStudentID[0] != 'Q' &&
-       pStudentInfo[nNumberStudent-1].sStudentID[0] != 'D')
+    if(pStudentInfo[nIndex].sStudentID[0] != 'C' &&
+       pStudentInfo[nIndex].sStudentID[0] != 'H' &&
+       pStudentInfo[nIndex].sStudentID[0] != 'S' &&
+       pStudentInfo[nIndex].sStudentID[0] != 'Q' &&
+       pStudentInfo[nIndex].sStudentID[0] != 'D')
     {
         printf("\t\tStudent ID is not in the correct format, please try again.\n");
         return 1;
     } //Check campus code
 
-    if(pStudentInfo[nNumberStudent-1].sStudentID[1] != 'S' &&
-       pStudentInfo[nNumberStudent-1].sStudentID[1] != 'E' &&
-       pStudentInfo[nNumberStudent-1].sStudentID[1] != 'A')
+    if(pStudentInfo[nIndex].sStudentID[1] != 'S' &&
+       pStudentInfo[nIndex].sStudentID[1] != 'E' &&
+       pStudentInfo[nIndex].sStudentID[1] != 'A')
     {
         printf("\t\tStudent ID is not in the correct format, please try again.\n");
         return 1;
     } //Check major code
 
-    if(atoi(pStudentInfo[nNumberStudent-1].sStudentID + 2) == 0)
+    if(atoi(pStudentInfo[nIndex].sStudentID + 2) == 0)
     {
         printf("\t\tStudent ID is not in the correct format, please try again.\n");
         return 1;
     } //Check number characters
 
-    for(int i = 0; i < nNumberStudent-1; i++)
+    for(int i = 0; i < nNumberStudent; i++)
     {
-        if(strcmp(pStudentInfo[nNumberStudent-1].sStudentID, pStudentInfo[i].sStudentID) == 0)
+        if(i == nIndex) continue;
+        if(strcmp(pStudentInfo[nIndex].sStudentID, pStudentInfo[i].sStudentID) == 0)
         {
             printf("\t\tStudent ID already exists, please try again.\n");
             return 1;
@@ -436,6 +438,33 @@ void ChangeStudent(student *pStudentInfo, int i, int j, int nSortBy, int nSortFr
     }
 }
 
+int nFindStudentID(char *StudentID, student *pStudentInfo, int nNumberStudent)
+{
+    for(int i = 0; i < strlen(StudentID); i++)
+        {
+            if(StudentID[i] == ' ')
+            {
+                memmove(StudentID + i, StudentID + i+1, strlen(StudentID + i));
+            }
+
+            if(StudentID[i] >= 'a' && StudentID[i] <= 'z')
+            {
+                StudentID[i] -= ('a' - 'A');
+            }
+        }
+
+        for(int i = 0; i < nNumberStudent; i++)
+        {
+            if(strcmp(StudentID, pStudentInfo[i].sStudentID) == 0)
+            {
+                return i;
+            }
+        }
+        system("cls");
+        printf("Student ID not found, please try again.\n");
+        return -1;
+}
+
 void f1_PrintAll(student *pStudentInfo, int nNumberStudent)
 {
     //print top border of header
@@ -492,7 +521,7 @@ void f2_AddStudent(student *pStudentInfo, int *nNumberStudent)
         printf("\tStudent ID: ");
         scanf("%[^\n]%*c", &pStudentInfo[(*nNumberStudent)-1].sStudentID);
         fflush(stdin);
-    } while(nCheckStudentID(pStudentInfo, *nNumberStudent));
+    } while(nCheckStudentID(pStudentInfo, *nNumberStudent, (*nNumberStudent) - 1));
     printf("\tStudent Name: ");
     scanf("%30[^\n]", &pStudentInfo[(*nNumberStudent)-1].sStudentName);
     fflush(stdin);
@@ -534,16 +563,157 @@ void f2_AddStudent(student *pStudentInfo, int *nNumberStudent)
     } while(nChoice);
 }
 
-void f3_UpdateInfo()
+void f3_UpdateInfo(student *pStudentInfo, int nNumberStudent)
 {
-    printf("Write your code here to implement the update_grade() function.\n");
+    int index;
+    char StudentID[9];
+    int nNotValid = 1, nInput, nScanfRet;
+    char cInput;
+    do_f3:
+    do
+    {
+        printf("Enter Student ID: ");
+        scanf("%[^\n]%*c", StudentID);
+        fflush(stdin);
+        index = nFindStudentID(StudentID, pStudentInfo, nNumberStudent);
+        if(index != -1) break;
+        system("cls");
+        printf("Student ID not found. Do you want to continue?\n");
+        printf("\t1. Yes\n");
+        printf("\t0. No\n");
+        do
+        {
+            printf("\nEnter your choice: ");
+            nScanfRet = scanf("%d%c", &nInput, &cInput);
+            if(nScanfRet < 2 || cInput != '\n')
+            {
+                system("cls");
+                printf("Student ID not found. Do you want to continue?\n");
+                printf("\t1. Yes\n");
+                printf("\t0. No\n");
+                printf("\n\tYour choice is not valid. Please try again!\n");
+                fflush(stdin);
+            }
+            else if(nInput < 0 || nInput > 1)
+            {
+                system("cls");
+                printf("Student ID not found. Do you want to continue?\n");
+                printf("\t1. Yes\n");
+                printf("\t0. No\n");
+                printf("\n\tYour choice is not valid. Please try again!\n");
+            }
+            else
+                nNotValid = 0;
+        }
+        while(nNotValid);
+        if(nInput == 0) return;
+        system("cls");
+    } while(1);
+    printf("\nStudent information:\n");
+
+    printf("\t1. Class Name:     %s\n", pStudentInfo[index].sClassName);
+    printf("\t2. Student ID:     %s\n", pStudentInfo[index].sStudentID);
+    printf("\t3. Student Name:   %s\n", pStudentInfo[index].sStudentName);
+    printf("\t4. Workshop:       %.1lf\n", pStudentInfo[index].dWorkshop);
+    printf("\t5. Progress Test:  %.1lf\n", pStudentInfo[index].dProgressTest);
+    printf("\t6. Assignment:     %.1lf\n", pStudentInfo[index].dAssignment);
+    printf("\t7. Practical Exam: %.1lf\n", pStudentInfo[index].dPracticalExam);
+    printf("\t8. Final Exam:     %.1lf\n", pStudentInfo[index].dFinalExam);
+    printf("\nWhich information do you want to update?\n");
+    printf("\t(Enter '0' if you do not want to change anything)\n");
+    do
+    {
+        printf("\nEnter your choice: ");
+        nScanfRet = scanf("%d%c", &nInput, &cInput);
+        if(nScanfRet < 2 || cInput != '\n')
+        {
+            printf("\nYour choice is not valid. Please try again!\n");
+            fflush(stdin);
+        }
+        else if(nInput < 0 || nInput > 8)
+        {
+            printf("\nYour choice is not valid. Please try again!\n");
+        }
+        else
+            nNotValid = 0;
+    }
+    while(nNotValid);
+    switch(nInput)
+    {
+    case 0:
+        return;
+    case 1:
+        do //Class Name
+        {
+            printf("Enter new Class Name: ");
+            scanf("%[^\n]%*c", &pStudentInfo[index].sClassName);
+            fflush(stdin);
+        } while(nCheckClassName(pStudentInfo[index].sClassName));
+        break;
+    case 2:
+        do //Student ID
+        {
+            printf("Enter new Student ID: ");
+            scanf("%[^\n]%*c", &pStudentInfo[index].sStudentID);
+            fflush(stdin);
+        } while(nCheckStudentID(pStudentInfo, nNumberStudent, index));
+        break;
+    case 3:
+        printf("Enter new Student Name: ");
+        scanf("%30[^\n]", &pStudentInfo[index].sStudentName);
+        fflush(stdin);
+        break;
+    case 4:
+        do //Workshop
+        {
+            printf("Enter new Workshop grade: ");
+            nScanfRet = scanf("%lf", &pStudentInfo[index].dWorkshop);
+        } while(nGradeValidation(pStudentInfo[index].dWorkshop, nScanfRet));
+        break;
+    case 5:
+        do //Progress Test
+        {
+            printf("Enter new Progress Test grade: ");
+            nScanfRet = scanf("%lf", &pStudentInfo[index].dProgressTest);
+        } while(nGradeValidation(pStudentInfo[index].dProgressTest, nScanfRet));
+        break;
+    case 6:
+        do //Assignment
+        {
+            printf("Enter new Assignment grade: ");
+            nScanfRet = scanf("%lf", &pStudentInfo[index].dAssignment);
+        } while(nGradeValidation(pStudentInfo[index].dAssignment, nScanfRet));
+        break;
+    case 7:
+        do //Practical Exam
+        {
+            printf("Enter new Practical Exam grade: ");
+            nScanfRet = scanf("%lf", &pStudentInfo[index].dPracticalExam);
+        } while(nGradeValidation(pStudentInfo[index].dPracticalExam, nScanfRet));
+        break;
+    case 8:
+        do //Final Exam
+        {
+            printf("Enter new Final Exam grade: ");
+            nScanfRet = scanf("%lf", &pStudentInfo[index].dFinalExam);
+        } while(nGradeValidation(pStudentInfo[index].dFinalExam, nScanfRet));
+        break;
+    }
+    nChangeStatus = 1;
+    int nChoice;
+    do
+    {
+        nChoice = nMakeChoice_f(0, 1);
+        if(nChoice)
+            goto do_f3;
+    } while(nChoice);
 }
 
 void f4_DeleteStudent(student *pStudentInfo, int *nNumberStudent)
 {
     char StudentID[9];
     int index = -1;
-    int nScanfRet, nInput, nNotValid;
+    int nScanfRet, nInput, nNotValid = 1;
     char cInput;
 
     do_f4:
@@ -552,34 +722,9 @@ void f4_DeleteStudent(student *pStudentInfo, int *nNumberStudent)
         printf("Enter Student ID: ");
         scanf("%[^\n]%*c", StudentID);
 
-        for(int i = 0; i < strlen(StudentID); i++)
-        {
-            if(StudentID[i] == ' ')
-            {
-                memmove(StudentID + i, StudentID + i+1, strlen(StudentID + i));
-            }
-
-            if(StudentID[i] >= 'a' && StudentID[i] <= 'z')
-            {
-                StudentID[i] -= ('a' - 'A');
-            }
-        }
-
-        for(int i = 0; i < (*nNumberStudent); i++)
-        {
-            if(strcmp(StudentID, pStudentInfo[i].sStudentID) == 0)
-            {
-                index = i;
-                break;
-            }
-        }
-        if(index == -1)
-        {
-            system("cls");
-            printf("Student ID not found, please try again.\n");
-        }
+        index = nFindStudentID(StudentID, pStudentInfo, *nNumberStudent);
     } while (index == -1);
-    printf("Student infomation:\n");
+    printf("Student information:\n");
     printf("Class name:     %s\n", pStudentInfo[index].sClassName);
     printf("Student ID:     %s\n", pStudentInfo[index].sStudentID);
     printf("Student name:   %s\n", pStudentInfo[index].sStudentName);
@@ -588,6 +733,7 @@ void f4_DeleteStudent(student *pStudentInfo, int *nNumberStudent)
     printf("Assignment:     %.1lf\n", pStudentInfo[index].dAssignment);
     printf("Practical exam: %.1lf\n", pStudentInfo[index].dPracticalExam);
     printf("Final exam:     %.1lf\n", pStudentInfo[index].dFinalExam);
+    printf("Avg Grade:      %.1lf\n", dAvgGrade(pStudentInfo[index]));
     printf("Status:         %s\n", (nCheckPassed(pStudentInfo[index]) == 1)?"Passes":"Failed");
 
     printf("\nDo you want to delete this student's information?\n");
@@ -717,35 +863,10 @@ void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent)
         scanf("%[^\n]%*c", StudentID);
         fflush(stdin);
 
-        for(int i = 0; i < strlen(StudentID); i++)
-        {
-            if(StudentID[i] == ' ')
-            {
-                memmove(StudentID + i, StudentID + i+1, strlen(StudentID + i));
-            }
-
-            if(StudentID[i] >= 'a' && StudentID[i] <= 'z')
-            {
-                StudentID[i] -= ('a' - 'A');
-            }
-        }
-
-        for(int i = 0; i < nNumberStudent; i++)
-        {
-            if(strcmp(StudentID, pStudentInfo[i].sStudentID) == 0)
-            {
-                index = i;
-                break;
-            }
-        }
-        if(index == -1)
-        {
-            system("cls");
-            printf("Student ID not found, please try again.\n");
-        }
+        index = nFindStudentID(StudentID, pStudentInfo, nNumberStudent);
     } while (index == -1);
 
-    printf("Student infomation:\n");
+    printf("\nStudent information:\n");
 
     printf("Class name:     %s\n", pStudentInfo[index].sClassName);
     printf("Student ID:     %s\n", pStudentInfo[index].sStudentID);
@@ -755,6 +876,7 @@ void f6_FindStudentGrade(student *pStudentInfo, int nNumberStudent)
     printf("Assignment:     %.1lf\n", pStudentInfo[index].dAssignment);
     printf("Practical exam: %.1lf\n", pStudentInfo[index].dPracticalExam);
     printf("Final exam:     %.1lf\n", pStudentInfo[index].dFinalExam);
+    printf("Avg Grade:      %.1lf\n", dAvgGrade(pStudentInfo[index]));
     printf("Status:         %s\n", (nCheckPassed(pStudentInfo[index]) == 1)?"Passes":"Failed");
 }
 
@@ -860,7 +982,7 @@ void f8_SaveFile(student *pStudentInfo, int nNumberStudent)
 
 void f0_Exit(student *pStudentInfo, int nNumberStudent)
 {
-    int nScanfRet, nInput, nNotValid;
+    int nScanfRet, nInput, nNotValid = 1;
     char cInput;
     if(nChangeStatus == 1)
     {
@@ -873,12 +995,12 @@ void f0_Exit(student *pStudentInfo, int nNumberStudent)
             nScanfRet = scanf("%d%c", &nInput, &cInput);
             if(nScanfRet < 2 || cInput != '\n')
             {
-                printf("\nYour choice is not valid. Please try again!\n");
+                printf("\nYour choice is not valid. Please try again!");
                 fflush(stdin);
             }
             else if(nInput < 0 || nInput > 1)
             {
-                printf("\nYour choice is not valid. Please try again!\n");
+                printf("\nYour choice is not valid. Please try again!");
             }
             else
                 nNotValid = 0;
