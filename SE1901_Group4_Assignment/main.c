@@ -45,7 +45,16 @@ void f0_Exit(student *pStudentInfo, int nNumberStudent); //completed
 int main(void)
 {
     pFile = fopen("Group4Data.txt", "r");
-
+    if(pFile == NULL)
+    {
+        int nStart = 0;
+        printf("Data not found!\n");
+        printf("Enter ONLY '1' to create new data, or else to exit.\n");
+        printf("\tEnter: ");
+        scanf("%d", &nStart);
+        if(nStart != 1)
+            return 0;
+    }
     int nNumberStudent = 0;
     fscanf(pFile, "%d", &nNumberStudent);
 
@@ -889,6 +898,7 @@ void f7_ListStudentGradeinClass(student *pStudentInfo, int nNumberStudent)
 
     char ClassName[7];
     int index = -1;
+    double dAvgOfClass = 0;
 
     do
     {
@@ -951,12 +961,16 @@ void f7_ListStudentGradeinClass(student *pStudentInfo, int nNumberStudent)
                pStudentInfo[i].dFinalExam,
                dAvgGrade(pStudentInfo[i]),
                (nCheckPassed(pStudentInfo[i]) == 1)?"Passes":"Failed");
+            dAvgOfClass += dAvgGrade(pStudentInfo[i]);
         }
+        if(i == nNumberStudent - 1)
+            dAvgOfClass /= j;
     }
 
     //print bottom border of table
     printf("+---+----------+----------+------------------------------+--------+-------------+----------+--------------+----------+---------+------+");
     printf("\n");
+    printf("AVERAGE of class %s: %.1lf\n", ClassName, dAvgOfClass);
 }
 
 void f8_SaveFile(student *pStudentInfo, int nNumberStudent)
